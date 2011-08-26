@@ -11,7 +11,7 @@ LDFLAGS += -T lm3s6965.ld
 
 #CFLAGS += --verbose
 #LDFLAGS += -Xlinker --verbose
-CFLAGS += -Xassembler --verbose
+#CFLAGS += -Xassembler --verbose
 
 all: main main.dis main.bin main.sym
 
