@@ -34,6 +34,9 @@ isr_default:
 
 .thumb_func
 isr_debug:
+    LDR r0, [sp, #24]
+    ADD r0, #2
+    STR r0, [sp, #24]
     BX lr
 
 .end
