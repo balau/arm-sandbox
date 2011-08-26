@@ -1,0 +1,1 @@
+void (*vect_addr)(void)[10];
