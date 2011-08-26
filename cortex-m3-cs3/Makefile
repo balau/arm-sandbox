@@ -9,11 +9,15 @@ CFLAGS += -mthumb -march=armv7 -mfix-cortex-m3-ldrd -g
 ASFLAGS += -mthumb -march=armv7 -mfix-cortex-m3-ldrd -g
 LDFLAGS += -T lm3s6965.ld
 
+#CFLAGS += --verbose
+#LDFLAGS += -Xlinker --verbose
+CFLAGS += -Xassembler --verbose
+
 all: main main.dis main.bin main.sym
 
-debug: main.bin gdb.init
+debug: main.bin
 	qemu-system-arm -M lm3s6965evb -s -S --kernel main.bin &
-	ddd --debugger $(CROSS_COMPILE)gdb --command=gdb.init
+	ddd --debugger $(CROSS_COMPILE)gdb --command=main.gdb
 
 clean:
 	rm -f main.bin
@@ -22,14 +26,7 @@ clean:
 	rm -f main
 	rm -f gdb.init
 
-gdb.init:
-	echo "file main" > $@
-	echo "target remote localhost:1234" >> $@
-	echo "break main" >> $@
-
-main.bin: main
-main.dis: main
-main.sym: main
+main: reset.S
 
 %.bin: %
 	$(OC) -O binary $< $@
