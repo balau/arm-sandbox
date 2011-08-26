@@ -19,6 +19,7 @@ debug: test_bkpt.bin gdb.init
 clean:
 	rm -f test_bkpt.bin
 	rm -f test_bkpt.dis
+	rm -f test_bkpt.sym
 	rm -f test_bkpt
 	rm -f gdb.init
 
