@@ -1,0 +1,8 @@
+# This is run first except when booting in single-user mode.
+::sysinit:/etc/init.d/rcS
+
+::respawn:/sbin/getty -n -l /bin/sh -L 115200 ttyAMA0 vt100
+::respawn:/sbin/getty -n -l /bin/sh -L 115200 tty1 vt100
+
+::restart:/sbin/init
+
