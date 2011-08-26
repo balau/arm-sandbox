@@ -1,0 +1,8 @@
+#!/bin/sh
+mount -t proc none /proc
+mount -t sysfs none /sys
+/sbin/mdev -s
+#ifconfig eth0 172.20.0.2
+#route add default gw 172.20.0.1
+#/bin/sh
+

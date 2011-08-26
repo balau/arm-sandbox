@@ -1,0 +1,16 @@
+# Boot-time system configuration/initialization script.
+# This is run first except when booting in single-user mode.
+#
+::sysinit:/etc/init.d/rcS
+
+# Put a getty on the serial line (for a terminal)
+#::respawn:/sbin/getty -n -l/bin/sh ttyS0 9600 vt100
+::respawn:/sbin/getty -n -l/bin/sh ttyAMA0 9600 vt100
+::respawn:/sbin/getty -n -l/bin/sh tty1 9600 vt100
+
+# Stuff to do when restarting the init process
+::restart:/sbin/init
+
+# Stuff to do before rebooting
+::ctrlaltdel:/sbin/reboot
+
