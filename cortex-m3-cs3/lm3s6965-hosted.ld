@@ -1,4 +1,7 @@
-/* Linker script for ARM M-profile Simulator
+/* Linker script for lm3s6965 ARM Cortex-M3 microcontroller
+ *
+ * Modified from generic-m-hosted.ld file shipped in:
+ *   Sourcery G++ Lite 2011.03-42
  *
  * Version: Sourcery G++ Lite 2011.03-42
  * Support: https://support.codesourcery.com/GNUToolchain/
