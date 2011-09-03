@@ -11,22 +11,30 @@ LDFLAGS += -T lm3s6965.ld
 
 #CFLAGS += --verbose
 #LDFLAGS += -Xlinker --verbose
+LDFLAGS += -Xlinker -Map=main.map
 #CFLAGS += -Xassembler --verbose
 
-all: main main.dis main.bin main.sym
+TARGETS = main main.dis main.bin main.sym main.srec main.hd
 
-debug: main.bin
+all: $(TARGETS)
+
+debug: all
 	qemu-system-arm -M lm3s6965evb -s -S --kernel main.bin &
 	ddd --debugger $(CROSS_COMPILE)gdb --command=main.gdb
 
-clean:
-	rm -f main.bin
-	rm -f main.dis
-	rm -f main.sym
-	rm -f main
-	rm -f gdb.init
+trace: all
+	qemu-system-arm -M lm3s6965evb --kernel main.bin --serial stdio -d cpu,in_asm,op,exec -singlestep
+	mv /tmp/qemu.log .	
 
-main: reset.S
+run: all
+	qemu-system-arm -M lm3s6965evb --kernel main.bin --serial stdio
+
+clean:
+	rm -f $(TARGETS)
+	rm -f main.map
+	rm -f qemu.log
+
+main: reset.S syscalls.c
 
 %.bin: %
 	$(OC) -O binary $< $@
@@ -36,4 +44,10 @@ main: reset.S
 
 %.sym: %
 	$(OD) -t $< >$@
+
+%.srec: %
+	$(OC) -O srec $< $@
+
+%.hd: %.bin
+	hexdump -C $< > $@
 
