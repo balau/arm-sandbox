@@ -167,7 +167,7 @@ SECTIONS
     _end = .;
     __end = .;
   } >ram
-  __cs3_region_init_ram = __cs3_region_start_ram;
+  __cs3_region_init_ram = LOADADDR(.data);
   __cs3_region_init_size_ram = _edata - __cs3_region_start_ram;
   __cs3_region_zero_size_ram = _end - _edata;
   __cs3_region_size_ram = LENGTH(ram);
