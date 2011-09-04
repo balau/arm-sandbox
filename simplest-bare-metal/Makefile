@@ -1,17 +1,19 @@
+CROSS_COMPILE=arm-none-eabi-
+include ../common/common.mk
 
 ASFLAGS = -mcpu=arm926ej-s -g
 CFLAGS = -mcpu=arm926ej-s -g
-LDFLAGS = -T $*.ld
+LDFLAGS = -T $*.ld -nostartfiles -nostdlib
 
 APP = test 
 DEBUG_APP = test
 
-APP_TARGETS = $(addsuffix .hd,$(APP)) $(addsuffix .code, $(APP)) $(addsuffix .elf, $(APP))
+APP_TARGETS = $(APP) $(addsuffix .hd,$(APP)) $(addsuffix .dis, $(APP))
 
 .PHONY: all
 all: $(APP_TARGETS)
 
-test.elf: startup.o
+test: startup.o
 
 .PHONY: clean
 clean:
@@ -20,8 +22,7 @@ clean:
 	rm -rf $(addsuffix .map, $(APP))
 	rm -rf $(APP_TARGETS)
 
-debug: $(DEBUG_APP).elf
+debug: $(DEBUG_APP)
 	ddd --debugger $(GDB) --command $(DEBUG_APP).gdb $<
 
-include ../common/arm.mk
 

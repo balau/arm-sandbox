@@ -1,9 +1,6 @@
 CROSS_COMPILE=arm-none-eabi-
-CC = $(CROSS_COMPILE)gcc
-OC = $(CROSS_COMPILE)objcopy
-OD = $(CROSS_COMPILE)objdump
-AS = $(CROSS_COMPILE)as
-LD = $(CROSS_COMPILE)ld
+
+include ../common/common.mk
 
 CFLAGS += -mthumb -march=armv7 -mfix-cortex-m3-ldrd -g
 ASFLAGS += -mthumb -march=armv7 -mfix-cortex-m3-ldrd -g
@@ -35,19 +32,4 @@ clean:
 	rm -f qemu.log
 
 main: reset.S syscalls.c
-
-%.bin: %
-	$(OC) -O binary $< $@
-
-%.dis: %
-	$(OD) -dS $< >$@
-
-%.sym: %
-	$(OD) -t $< >$@
-
-%.srec: %
-	$(OC) -O srec $< $@
-
-%.hd: %.bin
-	hexdump -C $< > $@
 
