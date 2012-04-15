@@ -25,7 +25,7 @@ fiq_handler_addr:            .word fiq_handler
 vectors_end:
 
 reset_handler:
-    /* set System stack */
+    /* set Supervisor stack */
     LDR sp, =stack_top
     /* copy vector table to address 0 */
     BL copy_vectors
@@ -39,7 +39,7 @@ reset_handler:
     LDR sp, =irq_stack_top
     /* Enable IRQs */
     BIC r0, r0, #0x80
-    /* go back in System mode */
+    /* go back in Supervisor mode */
     MSR cpsr, r0
     /* jump to main */
 	BL main
