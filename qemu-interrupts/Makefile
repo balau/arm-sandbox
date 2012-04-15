@@ -1,9 +1,9 @@
-CROSS_COMPILE=arm-none-eabi-
+CROSS_COMPILE=arm-linux-gnueabi-
 include ../common/common.mk
 
 ASFLAGS = -mcpu=arm926ej-s -g
 CFLAGS = -mcpu=arm926ej-s -g
-LDFLAGS = -T $*.ld
+LDFLAGS = -T $*.ld -nostdlib -Xlinker --build-id=none
 
 APP = test
 DEBUG_APP = test
