@@ -1,4 +1,4 @@
-ENTRY(_vectors_start)
+ENTRY(vectors_start)
 SECTIONS
 {
   . = 0x10000; 
