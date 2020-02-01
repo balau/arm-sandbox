@@ -2,3 +2,5 @@ This project is a peronal sandbox to experiment with ARM developing.
 Mainly the application will be bare metal and Linux.
 The emulation will be done mainly with QEMU.
 
+This project is licensed under the terms of the MIT license; see LICENSE file.
+
